@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roman Cho: Sea Haven — The Heavenly Realm-Verse</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Google Fonts: Cinzel Decorative, Plus Jakarta Sans, Orbitron -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@600;700;900&family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            heaven: ['Cinzel Decorative', 'serif'],
+            gaming: ['Orbitron', 'sans-serif'],
+          },
+          colors: {
+            haven: {
+              ocean: '#071329',
+              deep: '#030a17',
+              cyan: '#06b6d4',
+              emerald: '#10b981',
+              gold: '#f59e0b',
+              goldLight: '#fef08a',
+              rose: '#f43f5e',
+              purple: '#8b5cf6',
+              cardBg: 'rgba(11, 25, 48, 0.75)',
+            }
+          },
+          boxShadow: {
+            'heaven-glow': '0 0 30px rgba(6, 182, 212, 0.25)',
+            'gold-glow': '0 0 30px rgba(245, 158, 11, 0.3)',
+            'emerald-glow': '0 0 30px rgba(16, 185, 129, 0.3)',
+          },
+          animation: {
+            'float-slow': 'float 6s infinite ease-in-out',
+            'shimmer': 'shimmer 3s infinite linear',
+            'pulse-glow': 'pulseGlow 2.5s infinite ease-in-out',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            shimmer: {
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' },
+            },
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.6', filter: 'drop-shadow(0 0 8px rgba(6, 182, 212, 0.4))' },
+              '50%': { opacity: '1', filter: 'drop-shadow(0 0 20px rgba(245, 158, 11, 0.8))' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #030a17; }
+    ::-webkit-scrollbar-thumb { background: #0e294b; border-radius: 9999px; border: 1px solid rgba(6, 182, 212, 0.3); }
+    ::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
+
+    .glass-haven {
+      background: rgba(7, 19, 41, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(6, 182, 212, 0.2);
+    }
+
+    .glass-gold {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(7, 19, 41, 0.9));
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .glass-gold:hover {
+      border-color: rgba(245, 158, 11, 0.7);
+      box-shadow: 0 10px 30px -10px rgba(245, 158, 11, 0.4);
+    }
+
+    .text-gold-gradient {
+      background: linear-gradient(135deg, #fff2d1 0%, #f59e0b 50%, #d97706 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .text-cyan-gradient {
+      background: linear-gradient(135deg, #e0f2fe 0%, #38bdf8 50%, #0284c7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Ambient dynamic canvas overlay */
+    #ambientCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
+  </style>
+</head>
+<body class="bg-haven-deep text-slate-100 min-h-screen font-sans antialiased selection:bg-haven-cyan selection:text-black overflow-x-hidden">
+
+  <!-- Ambient Dynamic Canvas Background (Stars & Animated Waves) -->
+  <canvas id="ambientCanvas"></canvas>
+
+  <!-- APP MAIN CONTAINER -->
+  <div class="relative z-10 flex flex-col min-h-screen">
+
+    <!-- TOP HEADER / NAVIGATION BAR -->
+    <header class="sticky top-0 z-40 glass-haven border-b border-haven-cyan/20 shadow-2xl">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+        
+        <!-- Brand identity -->
+        <div class="flex items-center gap-3 cursor-pointer select-none group" onclick="navigateTo('dashboard')">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-haven-cyan via-haven-gold to-haven-purple p-0.5 shadow-heaven-glow group-hover:scale-105 transition-transform duration-300">
+            <div class="w-full h-full bg-haven-deep rounded-[14px] flex items-center justify-center text-haven-gold font-heaven font-bold text-xl">
+              <i class="fa-solid fa-water text-haven-cyan animate-pulse"></i>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-xl sm:text-2xl font-heaven font-extrabold tracking-wider text-gold-gradient leading-none">ROMAN CHO</span>
+            <span class="text-[10px] font-gaming tracking-widest uppercase text-haven-cyan pt-1">Sea Haven Realm-Verse</span>
+          </div>
+        </div>
+
+        <!-- Navigation items -->
+        <nav class="hidden lg:flex items-center gap-1 font-gaming text-xs uppercase tracking-wider">
+          <button onclick="navigateTo('dashboard')" id="nav-dashboard" class="px-4 py-2.5 rounded-xl text-haven-gold bg-haven-gold/10 border border-haven-gold/30 transition-all flex items-center gap-2 font-bold">
+            <i class="fa-solid fa-compass"></i> Dashboard
+          </button>
+          <button onclick="navigateTo('team')" id="nav-team" class="px-4 py-2.5 rounded-xl text-slate-300 hover:text-haven-cyan hover:bg-white/5 transition-all flex items-center gap-2">
+            <i class="fa-solid fa-user-shield"></i> Syndicate Team
+          </button>
+          <button onclick="navigateTo('battles')" id="nav-battles" class="px-4 py-2.5 rounded-xl text-slate-300 hover:text-haven-cyan hover:bg-white/5 transition-all flex items-center gap-2">
+            <i class="fa-solid fa-burst text-haven-rose"></i> Sea Battles
+          </button>
+          <button onclick="navigateTo('alchemy')" id="nav-alchemy" class="px-4 py-2.5 rounded-xl text-slate-300 hover:text-haven-cyan hover:bg-white/5 transition-all flex items-center gap-2">
+            <i class="fa-solid fa-flask text-haven-emerald"></i> Hotness Foods
+          </button>
+          <button onclick="navigateTo('leaderboard')" id="nav-leaderboard" class="px-4 py-2.5 rounded-xl text-slate-300 hover:text-haven-cyan hover:bg-white/5 transition-all flex items-center gap-2">
+            <i class="fa-solid fa-trophy text-haven-gold"></i> Stars Hall
+          </button>
+          <button onclick="navigateTo('chat')" id="nav-chat" class="px-4 py-2.5 rounded-xl text-slate-300 hover:text-haven-cyan hover:bg-white/5 transition-all flex items-center gap-2">
+            <i class="fa-solid fa-comments"></i> Haven Chat
+          </button>
+        </nav>
+
+        <!-- Right Side Actions -->
+        <div class="flex items-center gap-3">
+          <!-- Code Export / Copy Download Button -->
+          <button onclick="openExportModal()" class="px-3 py-2 rounded-xl bg-haven-cyan/10 border border-haven-cyan/30 text-haven-cyan text-xs font-gaming hover:bg-haven-cyan/20 transition-all flex items-center gap-1.5" title="Export HTML Source Code">
+            <i class="fa-solid fa-code"></i>
+            <span class="hidden sm:inline">Export Code</span>
+          </button>
+
+          <!-- User Star Profile Button -->
+          <div id="headerProfileBtn" onclick="openProfileModal()" class="flex items-center gap-2 cursor-pointer p-1.5 rounded-2xl glass-haven border border-haven-gold/30 hover:border-haven-gold transition-all">
+            <div class="w-9 h-9 rounded-xl overflow-hidden border border-haven-cyan bg-haven-ocean flex items-center justify-center">
+              <img id="userHeaderAvatar" src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=150&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+            </div>
+            <div class="hidden md:flex flex-col text-left pr-2">
+              <span id="userHeaderTag" class="text-xs font-bold text-slate-100 font-gaming">@Star_Gamers</span>
+              <span id="userHeaderGold" class="text-[10px] text-haven-gold font-bold flex items-center gap-1">
+                <i class="fa-solid fa-coins"></i> 1,500 Gold
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Mobile Navigation Sub-bar -->
+      <div class="lg:hidden flex items-center justify-around py-2 border-t border-haven-cyan/10 glass-haven text-xs font-gaming">
+        <button onclick="navigateTo('dashboard')" class="p-2 text-haven-gold flex flex-col items-center gap-1">
+          <i class="fa-solid fa-compass text-base"></i>
+          <span class="text-[9px]">Dashboard</span>
+        </button>
+        <button onclick="navigateTo('team')" class="p-2 text-slate-300 hover:text-haven-cyan flex flex-col items-center gap-1">
+          <i class="fa-solid fa-user-shield text-base"></i>
+          <span class="text-[9px]">Team</span>
+        </button>
+        <button onclick="navigateTo('battles')" class="p-2 text-slate-300 hover:text-haven-rose flex flex-col items-center gap-1">
+          <i class="fa-solid fa-burst text-base"></i>
+          <span class="text-[9px]">Battles</span>
+        </button>
+        <button onclick="navigateTo('alchemy')" class="p-2 text-slate-300 hover:text-haven-emerald flex flex-col items-center gap-1">
+          <i class="fa-solid fa-flask text-base"></i>
+          <span class="text-[9px]">Foods</span>
+        </button>
+        <button onclick="navigateTo('leaderboard')" class="p-2 text-slate-300 hover:text-haven-gold flex flex-col items-center gap-1">
+          <i class="fa-solid fa-trophy text-base"></i>
+          <span class="text-[9px]">Rank</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN BODY CONTENT PANELS -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+      <!-- PAGE 1: REALM VERSE DASHBOARD -->
+      <div id="view-dashboard" class="view-panel space-y-8">
+        
+        <!-- Hero Realm Banner -->
+        <div class="relative rounded-3xl overflow-hidden border border-haven-gold/30 glass-gold p-8 sm:p-12 shadow-gold-glow flex flex-col lg:flex-row items-center justify-between gap-8">
+          <div class="space-y-4 max-w-2xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-haven-gold/20 border border-haven-gold/40 text-haven-goldLight text-xs font-gaming uppercase tracking-widest">
+              <i class="fa-solid fa-crown text-haven-gold"></i> Platform Owner Realm Active
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-heaven font-bold text-gold-gradient leading-tight">
+              Sea Haven Realm-Verse
+            </h1>
+            <p class="text-sm text-slate-300 font-sans leading-relaxed">
+              Welcome, Star Gamer! Command the heavenly coastal waters with <strong class="text-haven-cyan">Gilm</strong>, <strong class="text-haven-emerald">Film</strong>, and <strong class="text-haven-rose">Leams</strong>. Craft Woodsman's Hotness Foods, build your Sea Syndicate, and conquer the Gangster Sea Arenas!
+            </p>
+
+            <div class="flex flex-wrap items-center gap-4 pt-2 font-gaming text-xs">
+              <button onclick="navigateTo('battles')" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-haven-cyan via-haven-gold to-haven-purple text-slate-950 font-black tracking-wider uppercase shadow-heaven-glow hover:scale-105 active:scale-95 transition-all">
+                <i class="fa-solid fa-play mr-2"></i> Launch Sea Battle
+              </button>
+              <button onclick="navigateTo('team')" class="px-6 py-3 rounded-2xl glass-haven border border-haven-gold/40 text-haven-gold font-bold hover:bg-haven-gold/10 transition-all">
+                <i class="fa-solid fa-users mr-2"></i> Assemble Syndicate
+              </button>
+            </div>
+          </div>
+
+          <!-- Featured Platform Owners Showcase Widget -->
+          <div class="w-full lg:w-auto flex items-center justify-center gap-4">
+            <div class="grid grid-cols-3 gap-3 w-full max-w-md">
+              
+              <!-- Gilm Card -->
+              <div onclick="navigateTo('team')" class="p-3 rounded-2xl glass-haven border border-haven-cyan/40 text-center cursor-pointer hover:border-haven-cyan group transition-all">
+                <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=150&auto=format&fit=crop&q=80" class="w-16 h-16 rounded-xl object-cover mx-auto border border-haven-cyan group-hover:scale-110 transition-transform">
+                <h4 class="font-gaming text-xs font-bold text-haven-cyan mt-2">GILM</h4>
+                <p class="text-[9px] text-slate-400 font-serif">Ocean Boss</p>
+              </div>
+
+              <!-- Film Card -->
+              <div onclick="navigateTo('team')" class="p-3 rounded-2xl glass-haven border border-haven-emerald/40 text-center cursor-pointer hover:border-haven-emerald group transition-all">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" class="w-16 h-16 rounded-xl object-cover mx-auto border border-haven-emerald group-hover:scale-110 transition-transform">
+                <h4 class="font-gaming text-xs font-bold text-haven-emerald mt-2">FILM</h4>
+                <p class="text-[9px] text-slate-400 font-serif">Aquatic Phantom</p>
+              </div>
+
+              <!-- Leams Card -->
+              <div onclick="navigateTo('team')" class="p-3 rounded-2xl glass-haven border border-haven-rose/40 text-center cursor-pointer hover:border-haven-rose group transition-all">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" class="w-16 h-16 rounded-xl object-cover mx-auto border border-haven-rose group-hover:scale-110 transition-transform">
+                <h4 class="font-gaming text-xs font-bold text-haven-rose mt-2">LEAMS</h4>
+                <p class="text-[9px] text-slate-400 font-serif">Food Alchemist</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Quick Stats Dashboard Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          
+          <div class="p-5 rounded-2xl glass-haven border border-haven-gold/30 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-gaming text-slate-400 uppercase tracking-widest block">Haven Gold</span>
+              <span id="dashGoldValue" class="text-2xl font-gaming font-black text-haven-gold">1,500</span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-haven-gold/10 border border-haven-gold/30 flex items-center justify-center text-haven-gold text-xl">
+              <i class="fa-solid fa-coins"></i>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-2xl glass-haven border border-haven-cyan/30 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-gaming text-slate-400 uppercase tracking-widest block">Active Syndicate Team</span>
+              <span id="dashTeamSize" class="text-2xl font-gaming font-black text-haven-cyan">3 / 3 Heroes</span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-haven-cyan/10 border border-haven-cyan/30 flex items-center justify-center text-haven-cyan text-xl">
+              <i class="fa-solid fa-user-ninja"></i>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-2xl glass-haven border border-haven-emerald/30 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-gaming text-slate-400 uppercase tracking-widest block">Woodsmans Hotness Foods</span>
+              <span id="dashFoodsCount" class="text-2xl font-gaming font-black text-haven-emerald">4 Items</span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-haven-emerald/10 border border-haven-emerald/30 flex items-center justify-center text-haven-emerald text-xl">
+              <i class="fa-solid fa-pepper-hot"></i>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-2xl glass-haven border border-haven-purple/30 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-gaming text-slate-400 uppercase tracking-widest block">Global Star Rank</span>
+              <span id="dashRankTitle" class="text-2xl font-gaming font-black text-haven-purple">#1 Sea Don</span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-haven-purple/10 border border-haven-purple/30 flex items-center justify-center text-haven-purple text-xl">
+              <i class="fa-solid fa-trophy"></i>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Daily Quests & Waterive Bounty Board -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          <div class="lg:col-span-2 p-6 rounded-3xl glass-haven border border-haven-cyan/20 space-y-4">
+            <div class="flex items-center justify-between border-b border-haven-cyan/10 pb-3">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-scroll text-haven-cyan text-lg"></i>
+                <h3 class="font-heaven font-bold text-lg text-cyan-gradient">Sea Haven Daily Bounties</h3>
+              </div>
+              <span class="text-[10px] font-gaming text-haven-gold">Resets Daily</span>
+            </div>
+
+            <div id="dailyQuestsList" class="space-y-3">
+              <!-- Dynamically populated bounties -->
+            </div>
+          </div>
+
+          <!-- Quick Ocean Realm Map Progress -->
+          <div class="p-6 rounded-3xl glass-haven border border-haven-gold/20 space-y-4 flex flex-col justify-between">
+            <div>
+              <h3 class="font-heaven font-bold text-lg text-gold-gradient mb-2">Ocean Territory Map</h3>
+              <p class="text-xs text-slate-300 font-sans">Conquer the 5 underwater gangster sectors to unlock legendary Woodsman's sap recipes.</p>
+              
+              <div class="mt-6 space-y-3">
+                <div>
+                  <div class="flex justify-between text-xs font-gaming mb-1">
+                    <span class="text-haven-cyan">Sector 1: Waterive Reef</span>
+                    <span class="text-haven-gold">100% Cleared</span>
+                  </div>
+                  <div class="w-full h-2 bg-haven-deep rounded-full overflow-hidden border border-haven-cyan/30">
+                    <div class="bg-haven-cyan h-full w-full"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-xs font-gaming mb-1">
+                    <span class="text-haven-emerald">Sector 2: Woodsman's Abyss</span>
+                    <span class="text-haven-emerald">65% Cleared</span>
+                  </div>
+                  <div class="w-full h-2 bg-haven-deep rounded-full overflow-hidden border border-haven-emerald/30">
+                    <div class="bg-haven-emerald h-full w-[65%]"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-xs font-gaming mb-1">
+                    <span class="text-haven-rose">Sector 3: Hotness Citadel</span>
+                    <span class="text-slate-500">Locked</span>
+                  </div>
+                  <div class="w-full h-2 bg-haven-deep rounded-full overflow-hidden border border-slate-700">
+                    <div class="bg-haven-rose h-full w-[10%]"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button onclick="navigateTo('battles')" class="w-full py-3 rounded-2xl bg-haven-gold/20 border border-haven-gold/50 text-haven-gold font-gaming font-bold text-xs uppercase tracking-wider hover:bg-haven-gold/30 transition-all">
+              Go To Battle Map
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- PAGE 2: GANGSTER TEAM BUILDER & CHARACTER LOCKER -->
+      <div id="view-team" class="view-panel hidden space-y-8">
+        
+        <div class="p-6 rounded-3xl glass-haven border border-haven-cyan/20 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-2xl font-heaven font-bold text-gold-gradient">Platform Owner Character Roster</h2>
+            <p class="text-xs text-slate-300 font-sans">Recruit, upgrade version titles (e.g. v1.0 Boss, v2.5 Tidal Mobster), and assemble your 3-Hero Syndicate Team.</p>
+          </div>
+
+          <button onclick="resetDefaultTeam()" class="px-4 py-2 rounded-xl border border-rose-500/40 bg-rose-500/10 text-rose-300 text-xs font-gaming hover:bg-rose-500/20 transition-all">
+            <i class="fa-solid fa-rotate-left mr-1"></i> Reset 3 Starter Heroes
+          </button>
+        </div>
+
+        <!-- 3 PLATFORM OWNER HERO CARDS SHOWCASE -->
+        <div id="characterCardsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Populated dynamically via JS -->
+        </div>
+
+        <!-- ACTIVE SYNDICATE TEAM SLOT ASSEMBLY -->
+        <div class="p-6 rounded-3xl glass-gold border border-haven-gold/40 space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-heaven font-bold text-xl text-gold-gradient">Active 3-Hero Syndicate Battle Formation</h3>
+            <span class="text-xs font-gaming text-haven-cyan">Ready for Ocean Battles</span>
+          </div>
+
+          <div id="activeSyndicateSlots" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <!-- Dynamic 3 slots -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- PAGE 3: SEA HAVEN BATTLES & QUESTS (ANIMATED CANVAS BATTLE) -->
+      <div id="view-battles" class="view-panel hidden space-y-6">
+        
+        <div class="p-6 rounded-3xl glass-haven border border-haven-rose/30 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-2xl font-heaven font-bold text-gold-gradient">Gangster Sea Battle Arena</h2>
+            <p class="text-xs text-slate-300 font-sans">Fight rival aquatic syndicates for Haven Gold and rare Woodsman's Hotness Ingredients!</p>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-gaming text-haven-gold">Difficulty:</span>
+            <select id="battleDifficulty" class="bg-haven-deep border border-haven-gold/40 rounded-xl px-3 py-1.5 text-xs text-haven-gold font-gaming focus:outline-none">
+              <option value="easy">Easy Reef Mobsters</option>
+              <option value="medium" selected>Medium Tidal Syndicate</option>
+              <option value="hard">Hard Boss Abyss Dons</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Interactive Battle Stage Canvas Container -->
+        <div class="relative rounded-3xl overflow-hidden border-2 border-haven-cyan/40 bg-haven-deep shadow-heaven-glow min-h-[420px] flex flex-col justify-between p-4 sm:p-6">
+          
+          <!-- Animated Background Elements -->
+          <div class="absolute inset-0 bg-gradient-to-b from-haven-ocean via-haven-deep to-black opacity-80"></div>
+          
+          <!-- Top Health Bars -->
+          <div class="relative z-10 grid grid-cols-2 gap-4 sm:gap-8 bg-haven-deep/80 p-4 rounded-2xl border border-haven-cyan/20">
+            <!-- Player Team Health -->
+            <div>
+              <div class="flex justify-between text-xs font-gaming mb-1">
+                <span class="text-haven-cyan font-bold" id="battlePlayerName">Your Syndicate</span>
+                <span id="battlePlayerHpText" class="text-haven-emerald">500 / 500 HP</span>
+              </div>
+              <div class="w-full h-3 bg-black/60 rounded-full border border-haven-cyan/40 overflow-hidden">
+                <div id="battlePlayerHpBar" class="bg-gradient-to-r from-haven-emerald to-haven-cyan h-full w-full transition-all duration-300"></div>
+              </div>
+            </div>
+
+            <!-- Enemy Syndicate Health -->
+            <div>
+              <div class="flex justify-between text-xs font-gaming mb-1">
+                <span class="text-haven-rose font-bold" id="battleEnemyName">Rival Coral Mobsters</span>
+                <span id="battleEnemyHpText" class="text-haven-rose">450 / 450 HP</span>
+              </div>
+              <div class="w-full h-3 bg-black/60 rounded-full border border-haven-rose/40 overflow-hidden">
+                <div id="battleEnemyHpBar" class="bg-gradient-to-r from-haven-rose to-haven-gold h-full w-full transition-all duration-300"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Animated Battle Sprites Screen -->
+          <div class="relative z-10 flex items-center justify-between my-8 px-4 sm:px-12">
+            <!-- Player Team Sprite Showcase -->
+            <div id="battlePlayerSprite" class="flex items-center gap-2 transition-transform duration-300">
+              <div class="w-20 h-20 sm:w-28 sm:h-28 rounded-2xl bg-haven-cyan/20 border-2 border-haven-cyan flex items-center justify-center text-haven-cyan text-4xl shadow-heaven-glow animate-float-slow">
+                <i id="battleHeroIcon" class="fa-solid fa-water"></i>
+              </div>
+            </div>
+
+            <!-- VS Badge -->
+            <div class="text-center font-gaming text-2xl font-black text-gold-gradient animate-pulse">
+              VS
+            </div>
+
+            <!-- Enemy Sprite Showcase -->
+            <div id="battleEnemySprite" class="flex items-center gap-2 transition-transform duration-300">
+              <div class="w-20 h-20 sm:w-28 sm:h-28 rounded-2xl bg-haven-rose/20 border-2 border-haven-rose flex items-center justify-center text-haven-rose text-4xl shadow-gold-glow animate-float-slow">
+                <i class="fa-solid fa-skull-crossbones"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Battle Log Feed & Actions Bar -->
+          <div class="relative z-10 space-y-4">
+            <!-- Battle Combat Log Text -->
+            <div id="battleLog" class="h-20 bg-black/70 rounded-2xl border border-haven-cyan/20 p-3 text-xs font-gaming text-haven-cyan overflow-y-auto space-y-1">
+              <p>🌊 Battle Arena Initialized! Choose an action to attack the rival syndicate...</p>
+            </div>
+
+            <!-- Battle Control Buttons -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-gaming text-xs">
+              <button onclick="executeBattleAction('attack')" class="py-3 rounded-xl bg-haven-cyan text-slate-950 font-black uppercase hover:bg-cyan-300 shadow-heaven-glow transition-all">
+                <i class="fa-solid fa-hand-fist"></i> Ocean Strike
+              </button>
+
+              <button onclick="executeBattleAction('special')" class="py-3 rounded-xl bg-haven-gold text-slate-950 font-black uppercase hover:bg-amber-300 shadow-gold-glow transition-all">
+                <i class="fa-solid fa-bolt"></i> Sea Magic
+              </button>
+
+              <button onclick="executeBattleAction('food')" class="py-3 rounded-xl bg-haven-emerald text-slate-950 font-black uppercase hover:bg-emerald-300 transition-all">
+                <i class="fa-solid fa-pepper-hot"></i> Eat Hotness Food
+              </button>
+
+              <button onclick="startAutoBattle()" class="py-3 rounded-xl bg-haven-purple text-white font-black uppercase hover:bg-purple-600 transition-all">
+                <i class="fa-solid fa-robot"></i> Auto-Fight
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- PAGE 4: WOODSMAN'S HAVEN & HOTNESS FOODS ALCHEMY -->
+      <div id="view-alchemy" class="view-panel hidden space-y-8">
+        
+        <div class="p-6 rounded-3xl glass-haven border border-haven-emerald/30 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-2xl font-heaven font-bold text-gold-gradient">Woodsman's Hotness Foods Alchemy</h2>
+            <p class="text-xs text-slate-300 font-sans">Craft mythical Sea Haven elixirs & spicy power foods using Waterive Herbs, Woodsmans Sap, and Hotness Spices.</p>
+          </div>
+
+          <div class="flex items-center gap-3 text-xs font-gaming text-haven-emerald">
+            <i class="fa-solid fa-seedling text-lg"></i>
+            <span>Crafting Level 4 Alchemist</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          <!-- Ingredient Inventory Box -->
+          <div class="p-6 rounded-3xl glass-haven border border-haven-cyan/20 space-y-4">
+            <h3 class="font-heaven font-bold text-lg text-cyan-gradient">Your Raw Ingredients</h3>
+            
+            <div class="space-y-3 font-gaming text-xs">
+              <div class="flex justify-between items-center p-3 rounded-2xl bg-haven-deep border border-haven-cyan/20">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-haven-cyan/20 text-haven-cyan flex items-center justify-center text-lg"><i class="fa-solid fa-leaf"></i></div>
+                  <div>
+                    <h4 class="font-bold text-slate-200">Waterive Herbs</h4>
+                    <span class="text-[10px] text-slate-400">Restores Vitality</span>
+                  </div>
+                </div>
+                <span id="ingHerbs" class="font-bold text-haven-cyan text-base">12</span>
+              </div>
+
+              <div class="flex justify-between items-center p-3 rounded-2xl bg-haven-deep border border-haven-gold/20">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-haven-gold/20 text-haven-gold flex items-center justify-center text-lg"><i class="fa-solid fa-tree"></i></div>
+                  <div>
+                    <h4 class="font-bold text-slate-200">Woodsmans Sap</h4>
+                    <span class="text-[10px] text-slate-400">Boosts Sea Magic</span>
+                  </div>
+                </div>
+                <span id="ingSap" class="font-bold text-haven-gold text-base">8</span>
+              </div>
+
+              <div class="flex justify-between items-center p-3 rounded-2xl bg-haven-deep border border-haven-rose/20">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-haven-rose/20 text-haven-rose flex items-center justify-center text-lg"><i class="fa-solid fa-pepper-hot"></i></div>
+                  <div>
+                    <h4 class="font-bold text-slate-200">Hotness Spices</h4>
+                    <span class="text-[10px] text-slate-400">Gangster Attack Boost</span>
+                  </div>
+                </div>
+                <span id="ingSpices" class="font-bold text-haven-rose text-base">15</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recipe Cooking & Crafting Board -->
+          <div class="lg:col-span-2 p-6 rounded-3xl glass-gold border border-haven-gold/40 space-y-4">
+            <h3 class="font-heaven font-bold text-lg text-gold-gradient">Woodsman's Crafting Recipes</h3>
+
+            <div id="recipesGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <!-- Dynamic Recipes populated via JS -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- PAGE 5: LEADERBOARD & STARS HALL OF FAME -->
+      <div id="view-leaderboard" class="view-panel hidden space-y-8">
+        
+        <div class="p-6 rounded-3xl glass-haven border border-haven-gold/30 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-2xl font-heaven font-bold text-gold-gradient">Stars Hall of Fame Leaderboard</h2>
+            <p class="text-xs text-slate-300 font-sans">Top ranked Sea Haven Gangster Stars and Syndicate Platform Bosses.</p>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-full bg-haven-gold/20 text-haven-gold text-xs font-gaming">
+              <i class="fa-solid fa-crown mr-1"></i> Season 1 Active
+            </span>
+          </div>
+        </div>
+
+        <div class="p-6 rounded-3xl glass-haven border border-haven-cyan/20 space-y-4 overflow-x-auto">
+          <table class="w-full text-left font-gaming text-xs">
+            <thead>
+              <tr class="border-b border-haven-cyan/20 text-haven-cyan uppercase text-[10px] tracking-wider">
+                <th class="p-3">Rank</th>
+                <th class="p-3">Star Gamer</th>
+                <th class="p-3">Starter Hero</th>
+                <th class="p-3">Battles Won</th>
+                <th class="p-3">Haven Gold</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboardTbody" class="divide-y divide-haven-cyan/10">
+              <!-- Dynamically populated rows -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- PAGE 6: LIVE SOCIAL CHAT & SEA SYNDICATE HUB -->
+      <div id="view-chat" class="view-panel hidden space-y-6">
+        
+        <div class="p-6 rounded-3xl glass-haven border border-haven-cyan/20 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-2xl font-heaven font-bold text-gold-gradient">Sea Syndicate Global Chat</h2>
+            <p class="text-xs text-slate-300 font-sans">Discuss battle tactics, trade Woodsman's foods, and flex your 3-Hero version builds.</p>
+          </div>
+
+          <span class="text-xs font-gaming text-haven-emerald flex items-center gap-1">
+            <span class="w-2 h-2 rounded-full bg-haven-emerald animate-ping"></span> 148 Gamers Online
+          </span>
+        </div>
+
+        <!-- Chat Stream Window -->
+        <div class="p-6 rounded-3xl glass-haven border border-haven-cyan/20 space-y-4 flex flex-col h-[500px]">
+          <div id="chatMessagesBox" class="flex-1 overflow-y-auto space-y-3 pr-2">
+            <!-- Messages populated via JS -->
+          </div>
+
+          <div class="flex gap-2 pt-2 border-t border-haven-cyan/10">
+            <input type="text" id="chatInput" onkeyup="if(event.key==='Enter') sendChatMessage()" placeholder="Type strategy or flex your team..." class="flex-1 bg-haven-deep border border-haven-cyan/30 rounded-2xl px-4 py-3 text-xs text-slate-100 font-sans focus:outline-none focus:border-haven-cyan">
+            <button onclick="sendChatMessage()" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-haven-cyan to-haven-gold text-slate-950 font-gaming font-black text-xs uppercase shadow-heaven-glow hover:opacity-90 transition-all">
+              Send <i class="fa-solid fa-paper-plane ml-1"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-auto glass-haven border-t border-haven-cyan/10 py-6 text-center text-xs text-slate-400 font-gaming">
+      <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <span>Roman Cho: Sea Haven Realm-Verse © 2026</span>
+        <div class="flex items-center gap-4 text-haven-cyan">
+          <button onclick="openExportModal()" class="hover:underline">Copy Source HTML</button>
+          <span>•</span>
+          <button onclick="downloadCodeFile()" class="hover:underline">Download Application</button>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- SIGN UP / PROFILE MODAL -->
+  <div id="profileModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-haven-deep border border-haven-gold/40 rounded-3xl w-full max-w-md p-6 shadow-gold-glow space-y-5 my-auto">
+      <div class="flex items-center justify-between border-b border-haven-gold/20 pb-3">
+        <h3 class="font-heaven font-bold text-lg text-gold-gradient">Play As Star Gamer</h3>
+        <button onclick="closeProfileModal()" class="text-slate-400 hover:text-haven-gold"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+
+      <div class="space-y-4 font-gaming text-xs">
+        <div>
+          <label class="block text-haven-gold mb-1 uppercase tracking-wider">Your Gangster Star Tag</label>
+          <input type="text" id="modalTagInput" class="w-full bg-haven-ocean border border-haven-gold/30 rounded-xl px-3 py-2 text-slate-100 focus:outline-none focus:border-haven-gold">
+        </div>
+
+        <div>
+          <label class="block text-haven-cyan mb-1 uppercase tracking-wider">Choose Free Starter Hero</label>
+          <div class="grid grid-cols-3 gap-2">
+            <button onclick="selectStarterHero('Gilm')" id="starterGilm" class="p-2 rounded-xl border border-haven-cyan bg-haven-cyan/20 text-center">
+              <span class="font-bold block text-slate-100">Gilm</span>
+              <span class="text-[9px] text-haven-cyan">Ocean Boss</span>
+            </button>
+            <button onclick="selectStarterHero('Film')" id="starterFilm" class="p-2 rounded-xl border border-slate-700 text-center">
+              <span class="font-bold block text-slate-100">Film</span>
+              <span class="text-[9px] text-slate-400">Phantom</span>
+            </button>
+            <button onclick="selectStarterHero('Leams')" id="starterLeams" class="p-2 rounded-xl border border-slate-700 text-center">
+              <span class="font-bold block text-slate-100">Leams</span>
+              <span class="text-[9px] text-slate-400">Alchemist</span>
+            </button>
+          </div>
+        </div>
+
+        <button onclick="saveProfileChanges()" class="w-full py-3 rounded-2xl bg-gradient-to-r from-haven-cyan to-haven-gold text-slate-950 font-black uppercase tracking-wider shadow-gold-glow hover:opacity-90">
+          Save Star Profile
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPORT SOURCE CODE MODAL -->
+  <div id="exportModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-haven-deep border border-haven-cyan/40 rounded-3xl w-full max-w-2xl p-6 shadow-heaven-glow space-y-4 my-auto">
+      <div class="flex items-center justify-between border-b border-haven-cyan/20 pb-3">
+        <h3 class="font-heaven font-bold text-lg text-cyan-gradient">Export Application Code</h3>
+        <button onclick="closeExportModal()" class="text-slate-400 hover:text-haven-cyan"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+
+      <p class="text-xs text-slate-300 font-sans">Copy the full single-file source code for Roman Cho: Sea Haven or download the file directly.</p>
+
+      <div class="flex gap-3">
+        <button onclick="copySourceCode()" class="flex-1 py-3 rounded-2xl bg-haven-cyan text-slate-950 font-gaming font-black text-xs uppercase shadow-heaven-glow">
+          <i class="fa-solid fa-copy mr-1"></i> Copy HTML
+        </button>
+        <button onclick="downloadCodeFile()" class="flex-1 py-3 rounded-2xl bg-haven-gold text-slate-950 font-gaming font-black text-xs uppercase shadow-gold-glow">
+          <i class="fa-solid fa-download mr-1"></i> Download .html
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION WIDGET -->
+  <div id="toast" class="fixed bottom-8 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-haven-deep border border-haven-cyan/40 text-haven-gold px-5 py-3 rounded-2xl shadow-heaven-glow flex items-center gap-3 text-xs font-gaming">
+    <i class="fa-solid fa-bolt text-haven-cyan"></i>
+    <span id="toastMsg">Notification Message</span>
+  </div>
+
+  <!-- APP STATE & JAVASCRIPT LOGIC -->
+  <script>
+    const STORAGE_KEY = 'ROMAN_CHO_SEA_HAVEN_STATE_V1';
+
+    // Platform Owner Characters Specification
+    const characterDatabase = [
+      {
+        id: 'c1',
+        name: 'Gilm',
+        title: 'The Tactical Ocean Don',
+        version: 'v1.0 Abyss Overlord',
+        role: 'Sea Haven Boss',
+        avatar: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=300&auto=format&fit=crop&q=80',
+        stats: { attack: 95, magic: 88, wealth: 100, hp: 550 },
+        backstory: 'Owner of the primary Sea Haven harbors. Commands coral mobsters with supreme tidal authority.',
+        ability: 'Tidal Wave Crush',
+        inSyndicate: true
+      },
+      {
+        id: 'c2',
+        name: 'Film',
+        title: 'The Aquatic Phantom',
+        version: 'v2.5 Tidal Mobster',
+        role: 'Shadow Enforcer',
+        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80',
+        stats: { attack: 92, magic: 90, wealth: 85, hp: 480 },
+        backstory: 'Moves through deep sea waters undetected. Strikes enemy ships before they see the whirlpool.',
+        ability: 'Abyssal Dagger Strike',
+        inSyndicate: true
+      },
+      {
+        id: 'c3',
+        name: 'Leams',
+        title: 'The Siren Strategist',
+        version: 'v3.0 Elixir Queen',
+        role: 'Food & Elixir Alchemist',
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&auto=format&fit=crop&q=80',
+        stats: { attack: 84, magic: 98, wealth: 92, hp: 510 },
+        backstory: 'Master of Woodsman’s sap and hotness spices. Infuses gang battles with high-potency elixirs.',
+        ability: 'Hotness Alchemy Burst',
+        inSyndicate: true
+      }
+    ];
+
+    const defaultState = {
+      user: {
+        tag: '@Star_Gamers',
+        starterHero: 'Gilm',
+        gold: 1500,
+        rank: '#1 Sea Don'
+      },
+      ingredients: {
+        herbs: 12,
+        sap: 8,
+        spices: 15
+      },
+      foods: [
+        { id: 'f1', name: 'Hotness Waterive Chili', effect: '+100 HP Healing', count: 3 },
+        { id: 'f2', name: 'Woodsmans Sap Brew', effect: '+25% Attack Boost', count: 2 }
+      ],
+      chatMessages: [
+        { sender: '@Sea_Boss_99', text: 'Gilm’s v1.0 Tidal Wave skill wiped the Sector 2 Mobsters easily!' },
+        { sender: '@Woodsman_Queen', text: 'Just crafted 5 Hotness Waterive Chilis using Woodsmans Sap!' }
+      ]
+    };
+
+    let state = loadState();
+    let battleState = {
+      playerHp: 500,
+      playerMaxHp: 500,
+      enemyHp: 450,
+      enemyMaxHp: 450,
+      turn: 'player'
+    };
+
+    // INIT APPLICATION
+    document.addEventListener('DOMContentLoaded', () => {
+      initAmbientCanvas();
+      renderAllComponents();
+      renderRecipes();
+      renderDailyQuests();
+    });
+
+    function loadState() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try { return JSON.parse(saved); } catch (e) { return defaultState; }
+      }
+      return defaultState;
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    // AMBIENT PARTICLES & WAVES CANVAS
+    function initAmbientCanvas() {
+      const canvas = document.getElementById('ambientCanvas');
+      const ctx = canvas.getContext('2d');
+      let w = canvas.width = window.innerWidth;
+      let h = canvas.height = window.innerHeight;
+
+      window.addEventListener('resize', () => {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      });
+
+      const particles = Array.from({ length: 45 }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        radius: Math.random() * 2 + 0.5,
+        color: Math.random() > 0.5 ? '#06b6d4' : '#f59e0b',
+        speedY: -Math.random() * 0.4 - 0.1,
+        alpha: Math.random()
+      }));
+
+      function animate() {
+        ctx.clearRect(0, 0, w, h);
+
+        particles.forEach(p => {
+          p.y += p.speedY;
+          if (p.y < 0) p.y = h;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = p.alpha;
+          ctx.fill();
+        });
+
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    // NAVIGATION
+    function navigateTo(viewName) {
+      const views = ['dashboard', 'team', 'battles', 'alchemy', 'leaderboard', 'chat'];
+      views.forEach(v => {
+        const el = document.getElementById(`view-${v}`);
+        if (el) el.classList.add('hidden');
+
+        const btn = document.getElementById(`nav-${v}`);
+        if (btn) {
+          if (v === viewName) {
+            btn.className = "px-4 py-2.5 rounded-xl text-haven-gold bg-haven-gold/10 border border-haven-gold/30 transition-all flex items-center gap-2 font-bold";
+          } else {
+            btn.className = "px-4 py-2.5 rounded-xl text-slate-300 hover:text-haven-cyan hover:bg-white/5 transition-all flex items-center gap-2 font-medium";
+          }
+        }
+      });
+
+      const active = document.getElementById(`view-${viewName}`);
+      if (active) active.classList.remove('hidden');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // UI RENDERERS
+    function renderAllComponents() {
+      document.getElementById('userHeaderTag').innerText = state.user.tag;
+      document.getElementById('userHeaderGold').innerHTML = `<i class="fa-solid fa-coins"></i> ${state.user.gold.toLocaleString()} Gold`;
+      document.getElementById('dashGoldValue').innerText = state.user.gold.toLocaleString();
+
+      // Ingredient values
+      document.getElementById('ingHerbs').innerText = state.ingredients.herbs;
+      document.getElementById('ingSap').innerText = state.ingredients.sap;
+      document.getElementById('ingSpices').innerText = state.ingredients.spices;
+
+      renderCharacterCards();
+      renderSyndicateSlots();
+      renderLeaderboard();
+      renderChatMessages();
+    }
+
+    function renderCharacterCards() {
+      const grid = document.getElementById('characterCardsGrid');
+      grid.innerHTML = characterDatabase.map(c => `
+        <div class="glass-gold p-5 rounded-3xl space-y-4 relative overflow-hidden group">
+          <div class="flex items-center gap-3">
+            <img src="${c.avatar}" class="w-16 h-16 rounded-2xl object-cover border-2 border-haven-gold shadow-gold-glow">
+            <div>
+              <span class="text-[9px] font-gaming uppercase text-haven-cyan block">${c.version}</span>
+              <h3 class="font-heaven font-bold text-lg text-slate-100">${c.name}</h3>
+              <p class="text-xs text-haven-gold font-serif">${c.role}</p>
+            </div>
+          </div>
+
+          <p class="text-xs text-slate-300 font-sans leading-relaxed">${c.backstory}</p>
+
+          <div class="space-y-1.5 pt-2 border-t border-haven-gold/15 text-xs font-gaming">
+            <div class="flex justify-between"><span class="text-slate-400">Attack Power</span> <span class="text-haven-rose">${c.stats.attack}</span></div>
+            <div class="flex justify-between"><span class="text-slate-400">Sea Magic</span> <span class="text-haven-cyan">${c.stats.magic}</span></div>
+            <div class="flex justify-between"><span class="text-slate-400">Gangster Wealth</span> <span class="text-haven-gold">${c.stats.wealth}</span></div>
+          </div>
+
+          <button onclick="toggleSyndicateMember('${c.id}')" class="w-full py-2.5 rounded-xl border border-haven-cyan/40 bg-haven-cyan/10 text-haven-cyan font-gaming font-bold text-xs uppercase tracking-wider hover:bg-haven-cyan/20 transition-all">
+            ${c.inSyndicate ? '<i class="fa-solid fa-check mr-1"></i> Active In Team' : 'Recruit To Syndicate'}
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function renderSyndicateSlots() {
+      const container = document.getElementById('activeSyndicateSlots');
+      const active = characterDatabase.filter(c => c.inSyndicate);
+
+      container.innerHTML = active.map(c => `
+        <div class="p-4 rounded-2xl glass-haven border border-haven-cyan/30 flex items-center gap-3">
+          <img src="${c.avatar}" class="w-12 h-12 rounded-xl object-cover border border-haven-cyan">
+          <div>
+            <h4 class="font-gaming font-bold text-xs text-slate-100">${c.name}</h4>
+            <span class="text-[9px] font-gaming text-haven-gold block">${c.version}</span>
+            <span class="text-[9px] text-haven-emerald"><i class="fa-solid fa-bolt"></i> ${c.ability}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleSyndicateMember(id) {
+      const c = characterDatabase.find(item => item.id === id);
+      if (c) {
+        c.inSyndicate = !c.inSyndicate;
+        renderAllComponents();
+        showToast(`${c.name} team configuration updated!`);
+      }
+    }
+
+    function resetDefaultTeam() {
+      characterDatabase.forEach(c => c.inSyndicate = true);
+      renderAllComponents();
+      showToast("Reset to 3 Platform Owner Starter Heroes!");
+    }
+
+    // BATTLES ENGINE
+    function executeBattleAction(action) {
+      const log = document.getElementById('battleLog');
+
+      if (action === 'attack') {
+        const dmg = Math.floor(Math.random() * 40) + 50;
+        battleState.enemyHp = Math.max(0, battleState.enemyHp - dmg);
+        log.innerHTML += `<p class="text-haven-cyan">⚡ You used Ocean Strike for <strong class="text-white">${dmg}</strong> damage!</p>`;
+      } else if (action === 'special') {
+        const dmg = Math.floor(Math.random() * 60) + 70;
+        battleState.enemyHp = Math.max(0, battleState.enemyHp - dmg);
+        log.innerHTML += `<p class="text-haven-gold">✨ Gilm & Team cast Sea Magic Burst for <strong class="text-white">${dmg}</strong> damage!</p>`;
+      } else if (action === 'food') {
+        battleState.playerHp = Math.min(battleState.playerMaxHp, battleState.playerHp + 80);
+        log.innerHTML += `<p class="text-haven-emerald">🌶️ Ate Hotness Waterive Chili! Healed <strong class="text-white">80 HP</strong>!</p>`;
+      }
+
+      // Enemy turn response
+      if (battleState.enemyHp > 0) {
+        const enemyDmg = Math.floor(Math.random() * 35) + 20;
+        battleState.playerHp = Math.max(0, battleState.playerHp - enemyDmg);
+        log.innerHTML += `<p class="text-haven-rose">💀 Enemy Coral Mobsters retaliated for <strong class="text-white">${enemyDmg}</strong> damage!</p>`;
+      } else {
+        log.innerHTML += `<p class="text-haven-gold font-bold">🏆 VICTORY! Enemy Syndicate Defeated! Earned +250 Haven Gold!</p>`;
+        state.user.gold += 250;
+        saveState();
+        renderAllComponents();
+      }
+
+      updateBattleHpDisplay();
+      log.scrollTop = log.scrollHeight;
+    }
+
+    function startAutoBattle() {
+      let interval = setInterval(() => {
+        if (battleState.enemyHp <= 0 || battleState.playerHp <= 0) {
+          clearInterval(interval);
+          return;
+        }
+        executeBattleAction('attack');
+      }, 1000);
+    }
+
+    function updateBattleHpDisplay() {
+      const pPct = (battleState.playerHp / battleState.playerMaxHp) * 100;
+      const ePct = (battleState.enemyHp / battleState.enemyMaxHp) * 100;
+
+      document.getElementById('battlePlayerHpBar').style.width = pPct + '%';
+      document.getElementById('battleEnemyHpBar').style.width = ePct + '%';
+      document.getElementById('battlePlayerHpText').innerText = `${battleState.playerHp} / ${battleState.playerMaxHp} HP`;
+      document.getElementById('battleEnemyHpText').innerText = `${battleState.enemyHp} / ${battleState.enemyMaxHp} HP`;
+    }
+
+    // ALCHEMY & HOTNESS FOODS
+    function renderRecipes() {
+      const recipes = [
+        { name: 'Hotness Waterive Chili', herbs: 2, sap: 1, spices: 3, effect: '+100 HP Healing' },
+        { name: 'Woodsmans Sap Elixir', herbs: 1, sap: 3, spices: 2, effect: '+25% Attack Boost' },
+        { name: 'Siren Sea Tonic', herbs: 3, sap: 2, spices: 1, effect: '+50 Sea Magic' }
+      ];
+
+      const grid = document.getElementById('recipesGrid');
+      grid.innerHTML = recipes.map(r => `
+        <div class="p-4 rounded-2xl glass-haven border border-haven-gold/30 space-y-3">
+          <div class="flex justify-between items-start">
+            <div>
+              <h4 class="font-bold text-xs text-slate-100 font-gaming">${r.name}</h4>
+              <span class="text-[10px] text-haven-emerald block">${r.effect}</span>
+            </div>
+            <i class="fa-solid fa-pepper-hot text-haven-gold"></i>
+          </div>
+
+          <div class="text-[10px] font-gaming text-slate-400 space-y-1">
+            <div>Req: ${r.herbs} Herbs, ${r.sap} Sap, ${r.spices} Spices</div>
+          </div>
+
+          <button onclick="craftFood('${r.name}', ${r.herbs}, ${r.sap}, ${r.spices})" class="w-full py-2 rounded-xl bg-haven-emerald text-slate-950 font-gaming font-bold text-xs uppercase hover:bg-emerald-300">
+            Craft Item
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function craftFood(name, herbs, sap, spices) {
+      if (state.ingredients.herbs >= herbs && state.ingredients.sap >= sap && state.ingredients.spices >= spices) {
+        state.ingredients.herbs -= herbs;
+        state.ingredients.sap -= sap;
+        state.ingredients.spices -= spices;
+        saveState();
+        renderAllComponents();
+        showToast(`Successfully crafted ${name}!`);
+      } else {
+        showToast("Not enough raw ingredients!");
+      }
+    }
+
+    // DAILY QUESTS
+    function renderDailyQuests() {
+      const quests = [
+        { title: 'Win 1 Sea Battle', reward: '+150 Gold', done: true },
+        { title: 'Craft 2 Woodsmans Hotness Foods', reward: '+3 Waterive Herbs', done: false },
+        { title: 'Recruit 3 Platform Owner Heroes', reward: '+100 Gold', done: true }
+      ];
+
+      const list = document.getElementById('dailyQuestsList');
+      list.innerHTML = quests.map(q => `
+        <div class="p-3 rounded-2xl bg-haven-deep border border-haven-cyan/20 flex items-center justify-between text-xs font-gaming">
+          <div class="flex items-center gap-3">
+            <i class="fa-solid fa-${q.done ? 'circle-check text-haven-emerald' : 'circle text-slate-600'}"></i>
+            <span class="${q.done ? 'line-through text-slate-400' : 'text-slate-200'}">${q.title}</span>
+          </div>
+          <span class="text-haven-gold">${q.reward}</span>
+        </div>
+      `).join('');
+    }
+
+    // LEADERBOARD
+    function renderLeaderboard() {
+      const tbody = document.getElementById('leaderboardTbody');
+      const rows = [
+        { rank: '1', name: state.user.tag, hero: state.user.starterHero, wins: 48, gold: state.user.gold },
+        { rank: '2', name: '@Sea_Lord_Vance', hero: 'Film', wins: 41, gold: 12000 },
+        { rank: '3', name: '@Alchemist_Queen', hero: 'Leams', wins: 38, gold: 9800 },
+        { rank: '4', name: '@Abyss_Captain', hero: 'Gilm', wins: 30, gold: 7400 }
+      ];
+
+      tbody.innerHTML = rows.map(r => `
+        <tr class="hover:bg-white/5 transition-colors">
+          <td class="p-3 text-haven-gold font-bold">#${r.rank}</td>
+          <td class="p-3 font-bold text-slate-100">${r.name}</td>
+          <td class="p-3 text-haven-cyan">${r.hero}</td>
+          <td class="p-3 text-slate-300">${r.wins} Wins</td>
+          <td class="p-3 text-haven-gold">${r.gold.toLocaleString()} Gold</td>
+        </tr>
+      `).join('');
+    }
+
+    // CHAT ENGINE
+    function renderChatMessages() {
+      const box = document.getElementById('chatMessagesBox');
+      box.innerHTML = state.chatMessages.map(m => `
+        <div class="p-3 rounded-2xl bg-haven-deep border border-haven-cyan/20 text-xs space-y-1">
+          <span class="font-gaming font-bold text-haven-cyan">${m.sender}</span>
+          <p class="text-slate-200 font-sans">${m.text}</p>
+        </div>
+      `).join('');
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function sendChatMessage() {
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      state.chatMessages.push({ sender: state.user.tag, text: text });
+      saveState();
+      input.value = '';
+      renderChatMessages();
+    }
+
+    // MODAL & PROFILE ACTIONS
+    function openProfileModal() {
+      document.getElementById('modalTagInput').value = state.user.tag;
+      document.getElementById('profileModal').classList.remove('hidden');
+    }
+
+    function closeProfileModal() {
+      document.getElementById('profileModal').classList.add('hidden');
+    }
+
+    function selectStarterHero(hero) {
+      state.user.starterHero = hero;
+      showToast(`Selected starter hero: ${hero}`);
+    }
+
+    function saveProfileChanges() {
+      state.user.tag = document.getElementById('modalTagInput').value || '@Star_Gamers';
+      saveState();
+      renderAllComponents();
+      closeProfileModal();
+      showToast("Star Profile Saved!");
+    }
+
+    // CODE EXPORT FUNCTIONS
+    function openExportModal() {
+      document.getElementById('exportModal').classList.remove('hidden');
+    }
+
+    function closeExportModal() {
+      document.getElementById('exportModal').classList.add('hidden');
+    }
+
+    function copySourceCode() {
+      const html = document.documentElement.outerHTML;
+      navigator.clipboard.writeText(html);
+      showToast("Source HTML copied to clipboard!");
+    }
+
+    function downloadCodeFile() {
+      const html = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      const blob = new Blob([html], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Roman_Cho_Sea_Haven_RealmVerse.html';
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast("Downloading application HTML!");
+    }
+
+    // UTILS
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
